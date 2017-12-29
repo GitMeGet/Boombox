@@ -1,0 +1,112 @@
+ContentResolver, Cursor
+- queries user device for audio files 
+
+MediaPlayer 
+- plays audio
+
+MediaController 
+- controls playback
+
+Android project c++ support?
+
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+- let music playback continue when the user's device becomes idle
+
+activity launchMode="singleTop"
+- If an instance of the activity already exists at the top of the target task, the system routes the intent to that instance through a call to its onNewIntent() method, rather than creating a new instance of the activity.
+
+https://stackoverflow.com/questions/16669228/how-to-import-or-copy-images-to-the-res-folder-in-android-studio
+
+URI for external music files
+
+App keeps crashing at startup 
+- applying fixes found in comments 
+
+Vyshnav Ramesh • 10 months ago
+For all new visitors who find errors as mentioned below is due to the the new versions of Android (M and N as of now).
+
+Solution:
+First add this in Mainfest:
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+Then add this in Main Activity just after 'setContentView(R.layout.activity_main)';
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+!= PackageManager.PERMISSION_GRANTED) {
+
+requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+
+// MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+// app-defined int constant
+
+return;
+}}
+
+- results in build errors (package "" does not exist)
+-- android.os.Build
+-- android.Manifest
+-- android.content.pm.PackageManager
+
+player = new MediaPlayer();
+player.setAudioStreamType(...) [method deprecated]
+
+Play music in the Service class but control music from the Activity class
+- Interaction between Activity and Service classes
+-- Binder instance required 
+
+MainActivity.onStart()
+- overriden to start the Service instance when Activity starts
+-- new intent
+-- bind service 
+-- start service
+
+MusicService.onUnbind() 
+- stops the service when user presses the 'end' button
+
+*** res/menu/main.xml not inflated ***
+
+*** onClick() not implemented ***
+- causes app to crash
+
+onRequestPermissionsResult(...)
+- Callback for the result from requesting permissions 
+- method is invoked for every call on requestPermissions(android.app.Activity, String[], int)
+
+Android Activity Lifecycle
+https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
+
+https://stackoverflow.com/questions/2486692/onserviceconnected-never-called-after-bindservice-method
+
+Shuffle and End buttons not showing (Menu not inflated)
+public boolean onCreateOptionsMenu(Menu menu) {
+MenuInflater inflater = getMenuInflater();
+inflater.inflate(R.menu.main, menu);
+return true;
+}
+
+Android Service does not persist (Android Service stops when app is closed)
+- pressing Back button causes music to stop playing
+*** run time error 
+- Mediaplayer went away with unhandled events
+https://stackoverflow.com/questions/9609479/android-mediaplayer-went-away-with-unhandled-events
+
+- mainactivity has leaked serviceconnection
+https://stackoverflow.com/questions/3385554/do-i-need-to-call-both-unbindservice-and-stopservice-for-android-services
+stopService() then unbindService()
+
+*** Back button ends app (onDestroy)
+
+MusicController controller not getting anchored at R.id.song_list
+
+@@@ create android .gitignore [okay]
+
+@@@ remove ListView songView [okay]
+
+*** BUG: press 'next_song', PLAY/PAUSE button updates to PLAY
+
+@@@ custom android media controller
+https://www.brightec.co.uk/ideas/custom-android-media-controller
+
+
+
