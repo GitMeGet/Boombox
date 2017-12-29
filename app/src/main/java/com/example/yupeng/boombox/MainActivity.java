@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
 
     private void init() {
         songList = new ArrayList<Song>();
-        songView = (ListView) findViewById(R.id.song_list);
+        //songView = (ListView) findViewById(R.id.song_list);
 
         // Invokes the iteration for adding songs.
         getSongList();
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
 
         // Custom-base adapter instantiation that displays the songs via the ListView.
         SongAdapter songAdapter = new SongAdapter(this, songList);
-        songView.setAdapter(songAdapter);
+        //songView.setAdapter(songAdapter);
 
         // Sets the music controller up.
         setController();
@@ -181,6 +181,14 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             //pass list
             musicSrv.setList(songList);
             musicBound = true;
+
+            musicSrv.setSong(0);
+            musicSrv.playSong();
+            if(playbackPaused){
+                setController();
+                playbackPaused=false;
+            }
+            controller.show(0);
         }
 
         @Override

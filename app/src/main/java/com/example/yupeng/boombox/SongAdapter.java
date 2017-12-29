@@ -1,13 +1,14 @@
 package com.example.yupeng.boombox;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import java.util.ArrayList;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Yu Peng on 7/11/2017.
