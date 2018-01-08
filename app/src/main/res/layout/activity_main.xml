@@ -5,12 +5,20 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="#FF330000"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:weightSum="1">
 
-    <ListView
-        android:id="@+id/song_list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+    <Button
+        android:id="@+id/button_play_pause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35" />
+
+    <Button
+        android:id="@+id/button_play_next"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="0.35" />
+
 
 </LinearLayout>
