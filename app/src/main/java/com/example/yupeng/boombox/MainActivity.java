@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private Intent playIntent;
     private boolean musicBound=false;
 
-    private MusicController controller;
-
     private boolean paused=false, playbackPaused=false;
 
     @Override
@@ -75,21 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        System.out.println("1");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            System.out.println("1.5");
-
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                     != 	PackageManager.PERMISSION_GRANTED) {
-
-                System.out.println("1.55");
-
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 
-                // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-                // app-defined int constant
+                // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an app-defined int constant
                 return;
             } else
             {
@@ -151,8 +142,6 @@ public class MainActivity extends AppCompatActivity {
         SongAdapter songAdapter = new SongAdapter(this, songList);
         //songView.setAdapter(songAdapter);
 
-        // Sets the music controller up.
-//        setController();
     }
 
     @Override
@@ -179,14 +168,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         if(paused){
-//            setController();
             paused=false;
         }
     }
 
     @Override
     protected void onStop() {
-        controller.hide();
         super.onStop();
     }
 
@@ -215,14 +202,12 @@ public class MainActivity extends AppCompatActivity {
             musicBound = true;
 
             if(playbackPaused){
-//                setController();
                 playbackPaused=false;
             }
 
             musicSrv.setSong(0);
             musicSrv.playSong();
 
-//            controller.show(0);
         }
 
         @Override
@@ -261,13 +246,9 @@ public class MainActivity extends AppCompatActivity {
         musicSrv.setSong(Integer.parseInt(view.getTag().toString()));
         musicSrv.playSong();
         if(playbackPaused){
-//            setController();
             playbackPaused=false;
         }
-        controller.show(0);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -288,114 +269,15 @@ public class MainActivity extends AppCompatActivity {
     private void playNext(){
         musicSrv.playNext();
         if(playbackPaused){
-//            setController();
             playbackPaused=false;
         }
-//        controller.show(0);
     }
 
     private void playPrev(){
         musicSrv.playPrev();
         if(playbackPaused){
-//            setController();
             playbackPaused=false;
         }
-//        controller.show(0);
     }
-
-/*
-    private void setController(){
-        //set the controller up
-        controller = new MusicController(this);
-
-        controller.setPrevNextListeners(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playNext();
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playPrev();
-            }
-        });
-
-        controller.setMediaPlayer(this);
-        controller.setAnchorView(findViewById(R.id.song_list));
-        controller.setEnabled(true);
-    }
-
-    @Override
-    public void start() {
-        musicSrv.go();
-    }
-
-    @Override
-    public void pause() {
-        playbackPaused=true;
-        musicSrv.pausePlayer();
-    }
-
-    @Override
-    public int getDuration() {
-        if(musicSrv!=null && musicBound && musicSrv.isPng())
-            return musicSrv.getDur();
-        else
-            return 0;
-    }
-
-    @Override
-    public int getCurrentPosition() {
-        if(musicSrv!=null && musicBound && musicSrv.isPng()){
-            return musicSrv.getPosn();
-        }
-        else {
-            return 0;
-        }
-    }
-
-    @Override
-    public void seekTo(int pos) {
-        musicSrv.seek(pos);
-    }
-
-    @Override
-    public boolean isPlaying() {
-        if(musicSrv!=null && musicBound)
-            return musicSrv.isPng();
-        else
-            return false;
-    }
-
-    @Override
-    public int getBufferPercentage() {
-        return 0;
-    }
-
-    @Override
-    public boolean canPause() {
-        return true;
-    }
-
-    @Override
-    public boolean canSeekBackward() {
-        return true;
-    }
-
-    @Override
-    public boolean canSeekForward() {
-        return true;
-    }
-
-    @Override
-    public int getAudioSessionId() {
-        return 0;
-    }
-*/
 
 }
-
-
-
-
-
