@@ -20,8 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.25" />
 
+    <Button
+        android:id="@+id/button_delete_song"
         android:layout_width="match_parent"
-        android:layout_weight="0.35" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25" />
 
 
 </LinearLayout>

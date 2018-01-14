@@ -82,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Button button_delete_song = (Button) findViewById(R.id.button_delete_song);
+        button_delete_song.setBackgroundResource(R.drawable.ic_menu_delete);
 
-
+        button_delete_song.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Delete Song",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
