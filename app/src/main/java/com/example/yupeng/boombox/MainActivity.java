@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -51,13 +53,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final Animation animShake = AnimationUtils.loadAnimation(this, R.animator.shake);
+
         final Button button_play_pause = (Button) findViewById(R.id.button_play_pause);
+        button_play_pause.setBackgroundResource(R.drawable.ic_media_pause);
+
         button_play_pause.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (playbackPaused == true) {
+                    button_play_pause.setBackgroundResource(R.drawable.ic_media_pause);
                     playbackPaused = false;
                     musicSrv.go();
                 } else {
+                    button_play_pause.setBackgroundResource(R.drawable.ic_media_play);
                     playbackPaused=true;
                     musicSrv.pausePlayer();
                 }
@@ -65,8 +73,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button button_play_next = (Button) findViewById(R.id.button_play_next);
+        button_play_next.setBackgroundResource(R.drawable.ic_media_next);
+
         button_play_next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                button_play_next.startAnimation(animShake);
                 playNext();
             }
         });
